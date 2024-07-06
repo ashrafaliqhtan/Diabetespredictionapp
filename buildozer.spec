@@ -1,19 +1,19 @@
 [app]
 
 # (str) Title of your application
-title = diapetesapp
+title = diabetesapp
 
 # (str) Package name
-package.name = diapetesapp
+package.name = diabetesapp
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.diapetesapp
+package.domain = org.diabetesapp
 
 # (str) Source code where the main.py live
 source.dir = .
 
-# (list) Source files to include (let empty to include all the files)
-source.include_exts = 
+# (list) Source files to include (let empty to include all)
+source.include_exts = py,png,jpg,kv,atlas
 
 # (str) Application versioning (method 1)
 version = 0.1.1
@@ -28,51 +28,37 @@ presplash.filename = %(source.dir)s/assets/logo.jpg
 # (str) Icon of the application
 icon.filename = %(source.dir)s/assets/logo.jpg
 
-# (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
+# (str) Supported orientation (one of landscape, sensorLandscape, portrait or sensorPortrait)
 orientation = portrait
-#
 
-# (bool) Indicate if the application should be fullscreen or not
+# (bool) Indicate if the application should be fullscreen
 fullscreen = 1
 
-# (string) Presplash background color (for new android toolchain)
+# (string) Presplash background color (for new android tools)
 # Supported formats are: #RRGGBB #AARRGGBB or one of the following names:
-# red, blue, green, black, white, gray, cyan, magenta, yellow, lightgray,
-# darkgray, grey, lightgrey, darkgrey, aqua, fuchsia, lime, maroon, navy,
-# olive, purple, silver, teal.
+# red, blue, green, black, white, gray, cyan, magenta, yellow, lightgray, darkgray, grey, lightgrey, darkgrey, aqua, fuchsia, lime, maroon, navy, olive, purple, silver, teal.
 android.presplash_color = #FFFFFF
 
 # (list) Permissions
-android.permissions = INTERNET, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE
+android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 
 # (int) Target Android API, should be as high as possible.
-android.api = 28
-
-# (str) Android SDK directory (if empty, it will be automatically downloaded.)
-#android.sdk_path = /home/kali/Android/Sdk
-#android.ndk_path = /home/kali/Android/Sdk/ndk-bundle
-
-# (bool) If True, then skip trying to update the Android sdk
-# This can be useful to avoid excess Internet downloads or save time
-# when an update is due and you just want to test/build your package
-android.skip_update = True
+android.api = 30
 
 # (str) Android logcat filters to use
 android.logcat_filters = *:S python:D
 
-# (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
-android.arch = armeabi-v7a
-android.archs = armeabi-v7a
+# (list) The Android architectures to build for, separated by a comma.
+android.archs = armeabi-v7a,arm64-v8a
+
 # (str) python-for-android branch to use, defaults to master
 p4a.branch = develop
 
-
 # (str) Bootstrap to use for android builds
-p4a.bootstrap = webview
+p4a.bootstrap = sdl2
 
-# (int) port number to specify an explicit --port= p4a argument (eg for bootstrap flask)
+# (int) port number to specify an explicit --port= p4a argument (eg for bootstrap webview)
 p4a.port = 8080
-
 
 [buildozer]
 
@@ -81,4 +67,3 @@ log_level = 2
 
 # (int) Display warning if buildozer is run as root (0 = False, 1 = True)
 warn_on_root = 1
-
