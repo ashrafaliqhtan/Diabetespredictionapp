@@ -57,6 +57,7 @@ jobs:
       run: |
         export ANDROID_HOME=$HOME/.buildozer/android/platform/android-sdk
         export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
+        buildozer init
         buildozer -v android debug
 
     - name: Upload APK
