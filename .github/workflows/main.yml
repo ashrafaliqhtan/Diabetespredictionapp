@@ -11,12 +11,12 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3  # الإصدار الأحدث
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v4  # الإصدار الأحدث
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.11'  # Python 3.11
+        python-version: '3.11'
 
     - name: Install dependencies
       run: |
@@ -25,18 +25,18 @@ jobs:
         pip install --upgrade cython
         pip install kivy
         pip install buildozer
-        pip install tensorflow  # تثبيت TensorFlow
-        pip install -r requirements.txt  # تثبيت المكتبات الأخرى المطلوبة
+        pip install tensorflow
+        pip install -r requirements.txt
 
     - name: Set up Android SDK
       run: |
-        mkdir -p $HOME/.buildozer/android/platform/android-sdk/cmdline-tools
+        mkdir -p $HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest
         wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O commandlinetools.zip
         unzip commandlinetools.zip -d $HOME/.buildozer/android/platform/android-sdk/cmdline-tools
         mv $HOME/.buildozer/android/platform/android-sdk/cmdline-tools/cmdline-tools $HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest
         export ANDROID_HOME=$HOME/.buildozer/android/platform/android-sdk
         export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
-        yes | sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "platforms;android-29" "build-tools;29.0.2" "extras;android;m2repository" "extras;google;m2repository" "cmdline-tools;latest"
+        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "platforms;android-29" "build-tools;29.0.2" "extras;android;m2repository" "extras;google;m2repository" "cmdline-tools;latest"
 
     - name: Build with Buildozer
       run: |
