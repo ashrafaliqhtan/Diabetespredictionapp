@@ -11,12 +11,12 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3  # الإصدار الأحدث
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4  # الإصدار الأحدث
       with:
-        python-version: '3.8'
+        python-version: '3.11'  # Python 3.11
 
     - name: Install dependencies
       run: |
@@ -25,6 +25,9 @@ jobs:
         pip install --upgrade cython
         pip install kivy
         pip install buildozer
+        pip install tensorflow  # تثبيت TensorFlow
+        # تثبيت المكتبات الأخرى التي يحتاجها مشروعك
+        pip install -r requirements.txt
 
     - name: Build with Buildozer
       run: |
