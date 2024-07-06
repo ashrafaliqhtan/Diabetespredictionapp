@@ -26,11 +26,21 @@ jobs:
         pip install kivy
         pip install buildozer
         pip install tensorflow  # تثبيت TensorFlow
-        # تثبيت المكتبات الأخرى التي يحتاجها مشروعك
-        pip install -r requirements.txt
+        pip install -r requirements.txt  # تثبيت المكتبات الأخرى المطلوبة
+
+    - name: Set up Android SDK
+      run: |
+        sudo apt install -y wget unzip
+        wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip -O commandlinetools.zip
+        unzip commandlinetools.zip -d $HOME/.buildozer/android/platform/android-sdk
+        export ANDROID_HOME=$HOME/.buildozer/android/platform/android-sdk
+        export PATH=$ANDROID_HOME/cmdline-tools/bin:$PATH
+        yes | sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "platforms;android-29" "build-tools;29.0.2" "extras;android;m2repository" "extras;google;m2repository" "cmdline-tools;latest"
 
     - name: Build with Buildozer
       run: |
+        export ANDROID_HOME=$HOME/.buildozer/android/platform/android-sdk
+        export PATH=$ANDROID_HOME/cmdline-tools/bin:$PATH
         buildozer -v android debug
 
     - name: Upload APK
