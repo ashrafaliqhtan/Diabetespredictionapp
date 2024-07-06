@@ -44,15 +44,6 @@ jobs:
         cd $HOME/.buildozer/android/platform
         git clone -b develop https://github.com/kivy/python-for-android.git
 
-    - name: Add JAXB Modules
-      run: |
-        sudo apt install -y openjdk-11-jdk
-        export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-        export PATH=$JAVA_HOME/bin:$PATH
-        export ANDROID_HOME=$HOME/.buildozer/android/platform/android-sdk
-        export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
-        sdkmanager --sdk_root=$ANDROID_HOME --add-modules java.se.ee
-
     - name: Build with Buildozer
       run: |
         export ANDROID_HOME=$HOME/.buildozer/android/platform/android-sdk
