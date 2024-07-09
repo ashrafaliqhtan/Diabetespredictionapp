@@ -32,8 +32,28 @@ jobs:
         python -m pip install -r requirements.txt
         pip install --upgrade buildozer
         pip install cython  # Install Cython
+
+    - name: Install Android SDK
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip
+        wget https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip -O commandlinetools.zip
+        unzip commandlinetools.zip -d $HOME/cmdline-tools
+        export ANDROID_HOME=$HOME/android-sdk
+        mkdir -p $ANDROID_HOME
+        mkdir -p $ANDROID_HOME/cmdline-tools
+        mv $HOME/cmdline-tools $ANDROID_HOME/cmdline-tools/latest
+        echo "export ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
+        echo "export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH" >> $GITHUB_ENV
+        echo "export PATH=$ANDROID_HOME/emulator:$PATH" >> $GITHUB_ENV
+        echo "export PATH=$ANDROID_HOME/tools:$PATH" >> $GITHUB_ENV
+        echo "export PATH=$ANDROID_HOME/tools/bin:$PATH" >> $GITHUB_ENV
+        source $GITHUB_ENV
+        sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "platforms;android-30" "build-tools;30.0.3"
+
     - name: Build with Buildozer
       run: |
+        export ANDROID_HOME=$HOME/android-sdk
         buildozer android debug
 
     - name: Archive APK
